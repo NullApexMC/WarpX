@@ -1,8 +1,18 @@
 name: WarpX
-version: '0.1'
+version: '0.2'
 main: me.nullapex.warpX.WarpX
 api-version: '1.21'
 load: STARTUP
 authors: [ NullApex, aoitcl ]
 description: WarpX a minecraft warping plugin
 website: https://github.com/NullApexMC/WarpX
+commands:
+  warp:
+    description: Teleport to a created warp.
+    usage: /warp <warp>
+  setwarp:
+    description: Set a warp point.
+    usage: /setwarp <name>
+  delwarp:
+    description: Delete a warp point.
+    usage: /delwarp <name>
