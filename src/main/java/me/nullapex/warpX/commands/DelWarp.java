@@ -38,7 +38,7 @@ public class DelWarp implements CommandExecutor {
         }
 
         warpsConfig.set(warpName, null);
-        plugin.saveConfig();
+        plugin.saveWarpsConfig();
 
         player.sendMessage(ChatColor.RED + "Warp " + ChatColor.AQUA + warpName + ChatColor.RED + " has been deleted");
         return true;
