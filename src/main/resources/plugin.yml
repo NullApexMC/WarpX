@@ -1,18 +1,41 @@
 name: WarpX
-version: '0.4'
+version: '0.5'
 main: me.nullapex.warpX.WarpX
 api-version: '1.21'
 load: STARTUP
 authors: [ NullApex, aoitcl ]
 description: WarpX a minecraft warping plugin
 website: https://github.com/NullApexMC/WarpX
+
 commands:
   warp:
     description: Teleport to a created warp.
     usage: /warp <warp>
+    permission: warpx.warp
+    permission-message: You do not have permission to use this command.
   setwarp:
     description: Set a warp point.
     usage: /setwarp <name>
+    permission: warpx.setwarp
+    permission-message: You do not have permission to use this command.
   delwarp:
     description: Delete a warp point.
     usage: /delwarp <name>
+    permission: warpx.delwarp
+    permission-message: You do not have permission to use this command.
+permissions:
+  warpx.warp:
+    description: Allows warp command (/warp <warp>)
+    default: true
+  warpx.setwarp:
+    description: Allow setwarp command (/setwarp <warp>)
+    default: op
+  warpx.delwarp:
+    description: Allow delwarp command (/delwarp <warp>)
+    default: op
+  warpx.admin:
+    description: Allow all commands
+    default: op
+    children:
+      warpx.setwarp: true
+      warpx.delwarp: true
