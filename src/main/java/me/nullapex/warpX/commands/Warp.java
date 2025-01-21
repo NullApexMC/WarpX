@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.io.File;
-
 public class Warp implements CommandExecutor {
     private final WarpX plugin;
 

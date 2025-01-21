@@ -1,5 +1,5 @@
 name: WarpX
-version: '0.5'
+version: '0.6'
 main: me.nullapex.warpX.WarpX
 api-version: '1.21'
 load: STARTUP
