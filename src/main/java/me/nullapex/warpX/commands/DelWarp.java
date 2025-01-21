@@ -1,19 +1,21 @@
 package me.nullapex.warpX.commands;
 
+import me.nullapex.warpX.WarpX;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
 public class DelWarp implements CommandExecutor {
-    private final HashMap<String, Location> warps;
+    private final WarpX plugin;
 
-    public DelWarp(HashMap<String, Location> warps) {
-        this.warps = warps;
+    public DelWarp(WarpX plugin) {
+        this.plugin = plugin;
     }
 
     @Override
@@ -30,11 +32,18 @@ public class DelWarp implements CommandExecutor {
         }
 
         String warpName = args[0].toLowerCase();
-        if (warps.remove(warpName) != null) {
-            player.sendMessage(ChatColor.RED + "Warp " + ChatColor.AQUA + warpName + ChatColor.RED + " has been deleted.");
-        } else {
-            player.sendMessage(ChatColor.RED + "Warp " + ChatColor.AQUA + warpName + ChatColor.RED + " not found.");
+
+        FileConfiguration config = plugin.getConfig();
+
+        if(!config.contains(warpName)) {
+            player.sendMessage(ChatColor.RED + "That warp does not exist");
+            return true;
         }
+
+        config.set(warpName, null);
+        plugin.saveConfig();
+
+        player.sendMessage(ChatColor.RED + "Warp " + ChatColor.AQUA + warpName + ChatColor.RED + " has been deleted");
         return true;
     }
 }

@@ -1,19 +1,22 @@
 package me.nullapex.warpX.commands;
 
+import me.nullapex.warpX.WarpX;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
+import java.io.File;
 
 public class Warp implements CommandExecutor {
-    private final HashMap<String, Location> warps;
+    private final WarpX plugin;
 
-    public Warp(HashMap<String, Location> warps) {
-        this.warps = warps;
+    public Warp(WarpX plugin) {
+        this.plugin = plugin;
     }
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -29,14 +32,28 @@ public class Warp implements CommandExecutor {
         }
 
         String warpName = args[0].toLowerCase();
-        Location warp = warps.get(warpName);
-        if (warp == null) {
-            player.sendMessage(ChatColor.RED + "That location does not exist");
+
+        FileConfiguration config = plugin.getConfig();
+
+        if(!config.contains(warpName)) {
+            player.sendMessage(ChatColor.RED + "Warp does not exist");
             return true;
         }
 
-        player.teleport(warp);
-        player.sendMessage(ChatColor.GREEN + "Warp " + ChatColor.AQUA + warpName);
+        String worldName = config.getString(warpName + ".world");
+        double x = config.getDouble(warpName + ".x");
+        double y = config.getDouble(warpName + ".y");
+        double z = config.getDouble(warpName + ".z");
+
+        if (Bukkit.getWorld(worldName) == null) {
+            player.sendMessage(ChatColor.RED + "World " + worldName + " does not exist");
+            return true;
+        }
+
+        Location loc = new Location(Bukkit.getWorld(worldName), x, y, z);
+
+        player.teleport(loc);
+        player.sendMessage(ChatColor.GREEN + "Teleported to " + ChatColor.AQUA + warpName);
         return true;
     }
 }
