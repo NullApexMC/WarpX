@@ -6,7 +6,7 @@
 
     <groupId>me.nullapex</groupId>
     <artifactId>WarpX</artifactId>
-    <version>0.4</version>
+    <version>0.6.1</version>
     <packaging>jar</packaging>
 
     <name>WarpX</name>
