@@ -33,17 +33,17 @@ public class Warp implements CommandExecutor {
 
         String warpName = args[0].toLowerCase();
 
-        FileConfiguration config = plugin.getConfig();
+        FileConfiguration warpsConfig = plugin.getWarpsConfig();
 
-        if(!config.contains(warpName)) {
+        if(!warpsConfig.contains(warpName)) {
             player.sendMessage(ChatColor.RED + "Warp does not exist");
             return true;
         }
 
-        String worldName = config.getString(warpName + ".world");
-        double x = config.getDouble(warpName + ".x");
-        double y = config.getDouble(warpName + ".y");
-        double z = config.getDouble(warpName + ".z");
+        String worldName = warpsConfig.getString(warpName + ".world");
+        double x = warpsConfig.getDouble(warpName + ".x");
+        double y = warpsConfig.getDouble(warpName + ".y");
+        double z = warpsConfig.getDouble(warpName + ".z");
 
         if (Bukkit.getWorld(worldName) == null) {
             player.sendMessage(ChatColor.RED + "World " + worldName + " does not exist");
